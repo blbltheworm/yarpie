@@ -11,7 +11,7 @@ It is designed to test/develop your projects without having access to a Raspberr
 The current version was developed for python 2.7. To install YARPie:
 
 - Install pygame
-- copy the "RPi_emu" sub folder from the "python2.x" folder inside your python2.x modules folder (e.g. "/usr/lib/python2.7/" ) or your project folder.
+- copy the "RPi_emu" sub folder from the "python2.x" folder inside your python2.x modules folder (e.g. "/usr/local/lib/python2.7/dist-packages/" ) or your project folder.
 
 To use YARPie:
 If your projects only uses the GPIO pins simply replace "import RPi.GPIO as GPIO" by "import RPi_emu.GPIO as GPIO" and run your script.
