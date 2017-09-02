@@ -209,22 +209,26 @@ class emugui(threading.Thread):
         
         pygame.display.set_caption('YARPI-emu v' + VERSION)
         
+        #locate the path of this module        
+        pkgname=__name__
+        pkgpath = os.path.dirname(sys.modules[pkgname].__file__)
+        
         #Images to display GPIO-states in GUI
-        self._icons = [pygame.image.load("./RPi_emu/GPIO/OFF.png"), 
-                 pygame.image.load("./RPi_emu/GPIO/ON.png"),
-                 pygame.image.load("./RPi_emu/GPIO/3v3.png"),
-                 pygame.image.load("./RPi_emu/GPIO/5v.png"),
-                 pygame.image.load("./RPi_emu/GPIO/GND.png"),
-                 pygame.image.load("./RPi_emu/GPIO/empty.png"),
-                 pygame.image.load("./RPi_emu/GPIO/IN-LOW.png"),
-                 pygame.image.load("./RPi_emu/GPIO/IN-HIGH.png"),
-                 pygame.image.load("./RPi_emu/GPIO/PWM.png")]
+        self._icons = [pygame.image.load(os.path.join(pkgpath, "OFF.png")), 
+                 pygame.image.load(os.path.join(pkgpath, "ON.png")),
+                 pygame.image.load(os.path.join(pkgpath, "3v3.png")),
+                 pygame.image.load(os.path.join(pkgpath, "5v.png")),
+                 pygame.image.load(os.path.join(pkgpath, "GND.png")),
+                 pygame.image.load(os.path.join(pkgpath, "empty.png")),
+                 pygame.image.load(os.path.join(pkgpath, "IN-LOW.png")),
+                 pygame.image.load(os.path.join(pkgpath, "IN-HIGH.png")),
+                 pygame.image.load(os.path.join(pkgpath, "PWM.png"))]
         
         for icon in self._icons:
             icon.convert()
         
         #load the background image
-        self._bgimage = pygame.image.load("./RPi_emu/GPIO/Background.png")
+        self._bgimage = pygame.image.load(os.path.join(pkgpath, "Background.png"))
         self._bgimage.convert()
         
         self.font = pygame.font.SysFont("arial", 10)
