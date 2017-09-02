@@ -18,11 +18,11 @@ try:
     import RPi.GPIO as GPIO
     import smbus
     bus = smbus.SMBus(1)
-    print "Running on a Raspberry Pi."
+    print("Running on a Raspberry Pi.")
 except ImportError: #no RPi.GPIO = no Pi  
     import RPi_emu.GPIO as GPIO
     bus = GPIO.SMBus(1)
-    print "Running in YARPie."
+    print("Running in YARPie.")
 
 #address and register of the connected i2c-device
 address  = 0x21
@@ -45,19 +45,19 @@ for i in range(55):
     try:
         func = GPIO.gpio_function(i)
         if func == GPIO.OUT:
-            print "pin %d: output (%d)" % (i, func)
+            print("pin %d: output (%d)" % (i, func))
         elif func == GPIO.IN:
-            print "pin %d: input (%d)" % (i, func)
+            print("pin %d: input (%d)" % (i, func))
         elif func == GPIO.SERIAL:
-            print "pin %d: serial (%d)" % (i, func)
+            print("pin %d: serial (%d)" % (i, func))
         elif func == GPIO.SPI:
-            print "pin %d: spi (%d)" % (i, func)
+            print("pin %d: spi (%d)" % (i, func))
         elif func == GPIO.I2C:
-            print "pin %d: i2c (%d)" % (i, func)
+            print("pin %d: i2c (%d)" % (i, func))
         elif func == GPIO.HARD_PWM:
-            print "pin %d: hardware pwm (%d)" % (i, func)
+            print("pin %d: hardware pwm (%d)" % (i, func))
         elif func == GPIO.UNKNOWN:
-            print "pin %d: unknown (%d)" % (i, func)
+            print("pin %d: unknown (%d)" % (i, func))
     except:
         pass
     
@@ -69,7 +69,7 @@ GPIO.setup(12, GPIO.OUT)
 while 1:
     GPIO.wait_for_edge(18, GPIO.RISING)
     val = read()
-    print val
+    print(val)
     if val > treshold:
         GPIO.output(11, GPIO.HIGH)
     else:

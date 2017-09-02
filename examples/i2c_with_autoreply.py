@@ -31,5 +31,5 @@ while True:
 	time.sleep(0.7)
 	lightlvl = lightlevel()
 	rng = range()
-	print lightlvl
-	print rng
+	print(lightlvl)
+	print(rng)

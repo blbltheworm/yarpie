@@ -1,8 +1,8 @@
 import time
-import emugui
+from . import emugui
 from threading import Thread #GUI is run as Thread to be independent of the main-code
 
-from gpio_const import *
+from .gpio_const import *
         
 VERSION = '0.0.2'
 RPI_INFO = 'GPIO-emu'
@@ -411,7 +411,7 @@ class SMBus(object):
             rev is a dummy which is not needed for the emulation but has to be given as the real SMBUS-module requires it.
         """
         
-        print( "Emu Reminder: This emulator ignores the bus number. You are using bus %d, ensure this is the bus you are using on your Raspberry-Pi as well." % (rev) )
+        print( ("Emu Reminder: This emulator ignores the bus number. You are using bus %d, ensure this is the bus you are using on your Raspberry-Pi as well.") % (rev) )
     
     def write_byte_data(self, device, register, data):
         if data > 255: #datablock is too long

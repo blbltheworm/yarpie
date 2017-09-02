@@ -4,12 +4,13 @@ Created on 18.04.2017
 @author: blbltheworm
 '''
 import pygame
-import pygamegadgets #InputGadget, Panel, Buttons and List
+import sys, os #required to determine the path where the module is saved (to locate images)
+from . import pygamegadgets #InputGadget, Panel, Buttons and List
 import threading
 import time
-from gpio_const import *
+from .gpio_const import *
 
-VERSION = '0.0.2'
+VERSION = '0.0.1'
 
 class cGP(object):
     """
@@ -208,7 +209,7 @@ class emugui(threading.Thread):
 
         
         pygame.display.set_caption('YARPI-emu v' + VERSION)
-        
+
         #locate the path of this module        
         pkgname=__name__
         pkgpath = os.path.dirname(sys.modules[pkgname].__file__)
@@ -263,7 +264,7 @@ class emugui(threading.Thread):
         """
         
         #detect edges
-        tmpedge = range(26)
+        tmpedge = list(range(26))
         for i in range(26): #rising/falling edge is stored as getedge() resets edge after calling if getedge() is called within the event loop and more then one callback is defined only the first one will be called
             tmpedge[i] = self.GP[i].getedge()
 
@@ -324,21 +325,21 @@ class emugui(threading.Thread):
             if not pos in [0, 16, 1, 3, 5, 8, 13, 19, 24, 29, 33, 38, 26, 27]: #Only draw GPIO-PINS, 3.3V, 5V, etc. are already drawn in the background picture
                 if self.GP[self.bcmmap[pos+1]-2].getio() == IN:
                     if self.GP[self.bcmmap[pos+1]-2].getstate() == LOW:
-                        self._screen.blit(self._icons[6], (self._xoffset+(pos % 2)*25 , self._yoffset + (pos / 2)*25))
+                        self._screen.blit(self._icons[6], (self._xoffset+(pos % 2)*25 , self._yoffset + (pos // 2)*25))
                     elif self.GP[self.bcmmap[pos+1]-2].getstate() == HIGH:
-                        self._screen.blit(self._icons[7], (self._xoffset+(pos % 2)*25 , self._yoffset + (pos / 2)*25))
+                        self._screen.blit(self._icons[7], (self._xoffset+(pos % 2)*25 , self._yoffset + (pos // 2)*25))
                     #else:
                     #    print( self.GP[self.bcmmap[pos+1]-2].getstate())
                 else:
                     if self.GP[self.bcmmap[pos+1]-2].getstate() == LOW:
-                        self._screen.blit(self._icons[0], (self._xoffset+(pos % 2)*25 , self._yoffset + (pos / 2)*25))
+                        self._screen.blit(self._icons[0], (self._xoffset+(pos % 2)*25 , self._yoffset + (pos // 2)*25))
                     elif self.GP[self.bcmmap[pos+1]-2].getstate() == HIGH:
-                        self._screen.blit(self._icons[8], (self._xoffset+(pos % 2)*25 , self._yoffset + (pos / 2)*25))
+                        self._screen.blit(self._icons[8], (self._xoffset+(pos % 2)*25 , self._yoffset + (pos // 2)*25))
                         if self.GP[self.bcmmap[pos+1]-2].pwm: #display duteycycle and frequency
                             line1 = self.font.render(("%d Hz, %.1f") % (self.GP[self.bcmmap[pos+1]-2].pwm_freq, self.GP[self.bcmmap[pos+1]-2].pwm_dc), True, (128, 128, 128))
                             self._screen.blit(line1, (75 - ((pos+1) % 2) * line1.get_width() + (pos % 2)*(200) , self._yoffset + (pos / 2)*25 + 12 - line1.get_height() // 2))
                         else:
-                            self._screen.blit(self._icons[1], (self._xoffset+(pos % 2)*25 , self._yoffset + (pos / 2)*25))    
+                            self._screen.blit(self._icons[1], (self._xoffset+(pos % 2)*25 , self._yoffset + (pos // 2)*25))    
     
     def run(self): 
         """
@@ -363,8 +364,8 @@ class emugui(threading.Thread):
                     #check for clicks on GPIO-Pins and change state if it is an input
                     x, y = pygame.mouse.get_pos()
                     if x >= self._xoffset and x <= self._xoffset+50 and y >= self._yoffset and y <= self._yoffset + 25*20:
-                        x = (x - self._xoffset) / 25
-                        y = (y - self._yoffset) / 25
+                        x = (x - self._xoffset) // 25
+                        y = (y - self._yoffset) // 25
                         if self.GP[self.bcmmap[(2*y+x)+1]-2].getio() == IN:
                             self.GP[self.bcmmap[(2*y+x)+1]-2].setstate(1-self.GP[self.bcmmap[(2*y+x)+1]-2].getstate())
                 

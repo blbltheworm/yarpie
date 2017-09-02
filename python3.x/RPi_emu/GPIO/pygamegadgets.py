@@ -289,7 +289,7 @@ class ListGadget(pygameGadget):
             else:
                 self._drawitems(self._curline, self._maxlines)
                 
-                cury = (self.height-35-6)*self._curline/(len(self.lines)-self._maxlines)
+                cury = (self.height-35-6)*self._curline//(len(self.lines)-self._maxlines)
                 if self.reverse:
                     self._surface.blit(self._ruler, (self.width-18, self.height - 18-6 - cury))
                 else:
@@ -693,10 +693,10 @@ class RadioGadget(pygameGadget):
         
         for i in range(2):
             self._imgstate[i].fill(self.bgcolor)
-            pygame.draw.circle(self._imgstate[i], self.color, (self.size / 2, self.size /2), self.size / 2)
-            pygame.draw.circle(self._imgstate[i], (173, 169, 165),(self.size / 2, self.size /2), self.size / 2, 1)
+            pygame.draw.circle(self._imgstate[i], self.color, (self.size // 2, self.size // 2), self.size // 2)
+            pygame.draw.circle(self._imgstate[i], (173, 169, 165),(self.size // 2, self.size // 2), self.size // 2, 1)
         
-        pygame.draw.circle(self._imgstate[i], (173, 169, 165),(self.size / 2, self.size /2), self.size / 2 - 3)
+        pygame.draw.circle(self._imgstate[i], (173, 169, 165),(self.size // 2, self.size // 2), self.size // 2 - 3)
     
     def draw(self, screen):
         self._surface.fill(self.bgcolor)
