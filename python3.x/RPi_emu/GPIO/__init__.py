@@ -4,7 +4,7 @@ from threading import Thread #GUI is run as Thread to be independent of the main
 
 from .gpio_const import *
         
-VERSION = '0.0.2'
+VERSION = '0.0.21'
 RPI_INFO = 'GPIO-emu'
 
 #  0 = Compute Module, 1 = Rev 1, 2 = Rev 2, 3 = Model B+ 
@@ -94,7 +94,7 @@ def output(channel, state):
             states = list(state)
         i = 0
         for i in range(len(channel)):
-            _output(channel[i], state[i])
+            _output(channel[i], state)
     else:
         _output(channel, state)
 
