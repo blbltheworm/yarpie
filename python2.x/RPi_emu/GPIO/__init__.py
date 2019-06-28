@@ -94,7 +94,7 @@ def output(channel, state):
             states = list(state)
         i = 0
         for i in range(len(channel)):
-            _output(channel[i], state[i])
+            _output(channel[i], state)
     else:
         _output(channel, state)
 
