@@ -93,8 +93,12 @@ def output(channel, state):
         if isinstance(state, tuple):
             states = list(state)
         i = 0
-        for i in range(len(channel)):
-            _output(channel[i], state)
+        if isinstance(states, list):
+            for i in range(len(channel)):
+                _output(channel[i], state[i])
+        else:
+            for i in range(len(channel)):
+                _output(channel[i], state)
     else:
         _output(channel, state)
 
